@@ -1,33 +1,93 @@
 import pygame
 
 from game_code_stuff import game_stuff as stuff
+from game_code_stuff import check_wins as wins
+from game_code_stuff import projectiles as pro
 
 def run_game():
     pygame.init()
     
+    #List to store arrays
+    projectile_list = []
+    
     #Make root screen
     root = pygame.display.set_mode((stuff.WIDTH, stuff.HEIGHT))
     
-    #Each Player's health at start of game
-    player1_health = 5
-    player2_health = 5
+    #Creating player rects
+    player1 = pygame.Rect(20,stuff.HEIGHT/2-25,stuff.PLAYER_SIZE_X,stuff.PLAYER_SIZE_Y)
+    player2 = pygame.Rect(stuff.WIDTH-20-stuff.PLAYER_SIZE_X,stuff.HEIGHT/2-25,stuff.PLAYER_SIZE_X,stuff.PLAYER_SIZE_Y)
     
-    player1 = pygame.Rect(20,stuff.HEIGHT/2-25,stuff.players_size_x,stuff.players_size_y)
-    
+    #Main game loop
     run_game = True
     while run_game:
+        #Cap the speed of the loop
         stuff.clock.tick(stuff.FPS)
+        
         #Event Loop
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 run_game = False
                 break
-            
+        
         #Rest of the stuff
         root.fill(stuff.WHITE)
-        #Drawing reacts
+        
+        #Draw border
         stuff.draw_border(root,stuff.WIDTH, stuff.HEIGHT)
-        stuff.draw_players(root, player1)    
+        
+        #Draw players
+        stuff.draw_player1(root, player1)
+        stuff.draw_player2(root,player2)
+        
+        # Check for key presses
+        keys = pygame.key.get_pressed()
+
+        #Movement fo player1
+        #Moving on x-axis
+        if keys[pygame.K_g]:
+            player1.x = stuff.player1_move_x_increase(player1.x)
+        if keys[pygame.K_d]:
+            player1.x = stuff.player1_move_x_decrease(player1.x)
+        #Moving on y-axis
+        if keys[pygame.K_r]:
+            player1.y = stuff.player_move_y_increase(player1.y)
+        if keys[pygame.K_f]:
+            player1.y = stuff.player_move_y_decrease(player1.y)
+        
+        #Movement fo player2
+        #Moving on x-axis
+        if keys[pygame.K_l]:
+            player2.x = stuff.player2_move_x_increase(player2.x)
+        if keys[pygame.K_j]:
+            player2.x = stuff.player2_move_x_decrease(player2.x)
+        #Moving on y-axis
+        if keys[pygame.K_i]:
+            player2.y = stuff.player_move_y_increase(player2.y)
+        if keys[pygame.K_k]:
+            player2.y = stuff.player_move_y_decrease(player2.y)
+        
+        #Check for shooting
+        if keys[pygame.K_z]:
+            projectile = pro.Projectiles(player1.center, "right")
+            projectile_list.append(projectile)
+        if keys[pygame.K_b]:
+            projectile = pro.Projectiles(player1.center, "right")
+            projectile_list.append(projectile)
+            
+        #Draw projectile objects
+        for projectile in projectile_list:
+            projectile.draw(root)
+        
+        #Move projectile objects
+        for projectile in projectile_list:
+            projectile.move_projectile(projectile.x)
+                    
+        #Health checks
+        if wins.check_win(wins.player1_health, wins.player2_health):
+            run_game = False
+            break
+        
+        #Update screen
         pygame.display.update()
     pygame.quit()
 

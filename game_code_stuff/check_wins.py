@@ -1,3 +1,7 @@
+#Each Player's health at start of game
+player1_health = 5
+player2_health = 5
+
 def player1_health_check(player1_health):
     if player1_health == 0:
         return True
@@ -20,3 +24,6 @@ def check_win(player1_health, player2_health):
         return True
     else:
         return False
+    
+def change_player_health(player_health):
+    return player_health-1
