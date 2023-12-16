@@ -17,6 +17,10 @@ def run_game():
     player1 = pygame.Rect(20,stuff.HEIGHT/2-25,stuff.PLAYER_SIZE_X,stuff.PLAYER_SIZE_Y)
     player2 = pygame.Rect(stuff.WIDTH-20-stuff.PLAYER_SIZE_X,stuff.HEIGHT/2-25,stuff.PLAYER_SIZE_X,stuff.PLAYER_SIZE_Y)
     
+    #Control Shoot
+    z_pressed = False
+    b_pressed = False
+    
     #Main game loop
     run_game = True
     while run_game:
@@ -28,6 +32,14 @@ def run_game():
             if event.type == pygame.QUIT:
                 run_game = False
                 break
+            elif event.type == pygame.KEYDOWN:
+                if not key_pressed:
+                    if event.key == pygame.K_z:  # Change this to the key you want to check
+                        print("z")
+                        key_pressed = True
+            elif event.type == pygame.KEYUP:
+                if event.key == pygame.K_z:  # Change this to the key you want to check
+                    key_pressed = False
         
         #Rest of the stuff
         root.fill(stuff.WHITE)
@@ -67,21 +79,23 @@ def run_game():
             player2.y = stuff.player_move_y_decrease(player2.y)
         
         #Check for shooting
-        if keys[pygame.K_z]:
+        if keys[pygame.K_z] and z_pressed == False:
+            z_pressed = True
             projectile = pro.Projectiles(player1.center, "right")
             projectile_list.append(projectile)
-        if keys[pygame.K_b]:
+            print("z")
+        if keys[pygame.K_b] and b_pressed == False:
+            b_pressed = True
             projectile = pro.Projectiles(player1.center, "right")
             projectile_list.append(projectile)
+            print("b")
             
-        #Draw projectile objects
-        for projectile in projectile_list:
-            projectile.draw(root)
+        #Change var if player shots
+        if z_pressed:
+            z_pressed = False
+        if b_pressed:
+            z_pressed = False
         
-        #Move projectile objects
-        for projectile in projectile_list:
-            projectile.move_projectile(projectile.x)
-                    
         #Health checks
         if wins.check_win(wins.player1_health, wins.player2_health):
             run_game = False

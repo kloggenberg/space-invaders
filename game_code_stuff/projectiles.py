@@ -1,7 +1,8 @@
 import pygame
-from game_code_stuff import game_stuff as stuff
 
-class Projectiles:
+# from game_code_stuff import game_stuff as stuff
+
+class Projectiles():
     def __init__(self,center,direction):
         self.WIDTH = 2
         self.HEIGHT = 1
@@ -10,11 +11,8 @@ class Projectiles:
         self.direction = direction
         self.BULLET_SPEED = 20
         self.GREEN = (0,255,0)
-        self.rect = pygame.rect(self.x,self.y,self.WIDTH, self.HEIGHT)
-        
-        return self.rect
+        self.rect = pygame.Rect(self.x,self.y,self.WIDTH, self.HEIGHT)
 
-    
     def draw(self,root):
         pygame.draw.rect(root, self.GREEN, self.rect)
 
@@ -26,10 +24,10 @@ class Projectiles:
             return x - self.BULLET_SPEED
     
     
-    def check_projectile_off_screen(self):
-        if self.direction == "right":
-            if self.x > stuff.WIDTH:
-                pass 
-        elif self.direction == "left":
-            if self.x < 0:
-                pass
+    # def check_projectile_off_screen(self):
+    #     if self.direction == "right":
+    #         if self.x > stuff.WIDTH:
+    #             pass 
+    #     elif self.direction == "left":
+    #         if self.x < 0:
+    #             pass
