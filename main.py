@@ -29,20 +29,28 @@ def run_game():
         
         #Event Loop
         for event in pygame.event.get():
+            #Quit the game
             if event.type == pygame.QUIT:
                 run_game = False
                 break
+            #Handles Shooting Events
             elif event.type == pygame.KEYDOWN:
-                if not key_pressed:
-                    if event.key == pygame.K_z:  # Change this to the key you want to check
-                        print("z")
-                        key_pressed = True
+                if event.key == pygame.K_z and z_pressed == False:  # Change this to the key you want to check
+                    projectile = pro.Projectiles(player1.center, "right")
+                    projectile_list.append(projectile)
+                    z_pressed = True
+                if event.key == pygame.K_b and b_pressed == False:  # Change this to the key you want to check
+                    projectile = pro.Projectiles(player2.center, "left")
+                    projectile_list.append(projectile)
+                    b_pressed = True
             elif event.type == pygame.KEYUP:
-                if event.key == pygame.K_z:  # Change this to the key you want to check
-                    key_pressed = False
-        
+                if event.key == pygame.K_z and z_pressed == True:  # Change this to the key you want to check
+                    z_pressed = False
+                if event.key == pygame.K_b and b_pressed == True:  # Change this to the key you want to check
+                    b_pressed = False
+                    
         #Rest of the stuff
-        root.fill(stuff.WHITE)
+        root.fill(stuff.BLACK)
         
         #Draw border
         stuff.draw_border(root,stuff.WIDTH, stuff.HEIGHT)
@@ -50,6 +58,19 @@ def run_game():
         #Draw players
         stuff.draw_player1(root, player1)
         stuff.draw_player2(root,player2)
+
+        #Draw Projectiles
+        for ob in projectile_list:
+            ob.draw(root)
+            
+        #Move projectiles across screen
+        for ob in projectile_list:
+            ob.x = ob.move_projectile()
+        
+        #Remove projectile if off screen
+        for ob in projectile_list:
+            if ob.check_projectile_off_screen():
+                projectile_list.remove(ob)
         
         # Check for key presses
         keys = pygame.key.get_pressed()
@@ -78,17 +99,6 @@ def run_game():
         if keys[pygame.K_k]:
             player2.y = stuff.player_move_y_decrease(player2.y)
         
-        #Check for shooting
-        if keys[pygame.K_z] and z_pressed == False:
-            z_pressed = True
-            projectile = pro.Projectiles(player1.center, "right")
-            projectile_list.append(projectile)
-            print("z")
-        if keys[pygame.K_b] and b_pressed == False:
-            b_pressed = True
-            projectile = pro.Projectiles(player1.center, "right")
-            projectile_list.append(projectile)
-            print("b")
             
         #Change var if player shots
         if z_pressed:

@@ -12,7 +12,7 @@ clock = pygame.time.Clock()
 FPS = 60
 
 def draw_border(root, WIDTH, HEIGHT):
-    pygame.draw.rect(root, BLACK ,(WIDTH/2-10, 0, 10, HEIGHT))
+    pygame.draw.rect(root, WHITE ,(WIDTH/2-10, 0, 10, HEIGHT))
     
 
 def draw_player1(root,player):
