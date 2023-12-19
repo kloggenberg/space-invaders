@@ -8,7 +8,6 @@ class Projectiles():
         self.HEIGHT = 10
         self.x = center[0]
         self.y = center[1]
-        self.direction = direction
         self.BULLET_SPEED = 20
         self.GREEN = (0,255,0)
 
@@ -17,18 +16,11 @@ class Projectiles():
 
     
     def move_projectile(self):
-        if self.direction == "right":
-            return self.x + self.BULLET_SPEED
-        elif self.direction == "left":
-            return self.x - self.BULLET_SPEED
+        return self.y-self.BULLET_SPEED
     
     
     def check_projectile_off_screen(self):
-        if self.direction == "right":
-            if self.x > stuff.WIDTH:
-                return True
-        elif self.direction == "left":
-            if self.x < 0:
-                return True
+        if self.y < 0:
+            return True
         else:
             return False
