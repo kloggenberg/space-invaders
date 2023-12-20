@@ -3,12 +3,12 @@ import pygame
 from game_code_stuff import game_stuff as stuff
 
 class Projectiles():
-    def __init__(self,center,direction):
-        self.WIDTH = 20
-        self.HEIGHT = 10
-        self.x = center[0]
+    def __init__(self,center):
+        self.WIDTH = 10
+        self.HEIGHT = 20
+        self.x = center[0]-5
         self.y = center[1]
-        self.BULLET_SPEED = 20
+        self.BULLET_SPEED = 10
         self.GREEN = (0,255,0)
 
     def draw(self,root):

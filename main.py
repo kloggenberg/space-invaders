@@ -1,6 +1,7 @@
 import pygame
 
 import game_code_stuff.game_stuff as stuff
+import game_code_stuff.projectiles as pro
 
 def main():
     pygame.init()
@@ -13,7 +14,13 @@ def main():
     pygame.display.set_caption("My Game")
     
     #Player rect
-    player = pygame.Rect(stuff.WIDTH/2-25, stuff.HEIGHT-50-25, stuff.PLAYER_SIZE, stuff.PLAYER_SIZE)
+    player = pygame.Rect(stuff.WIDTH/2-25, stuff.HEIGHT-50-30, stuff.PLAYER_SIZE, stuff.PLAYER_SIZE)
+    
+    #Import Image
+    image = pygame.image.load('game_assets/player.png')
+    scaled_width = scaled_height = 50
+    scaled_image = pygame.transform.scale(image, (scaled_width, scaled_height))
+
     
     #Variable to help control shoot
     shoot = False
@@ -30,18 +37,19 @@ def main():
                 break
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_z and shoot == False:
-                    print("z Down")
+                    projectile = pro.Projectiles(player.center)
+                    projectile_list.append(projectile)
                     shoot = True
             if event.type == pygame.KEYUP:
                 if event.key == pygame.K_z and shoot == True:
-                    print("z Up")
                     shoot = False
                     
         #Make screen color Black
         root.fill(stuff.BLACK)
         
         #Draw the player
-        stuff.draw_player(root,player)
+        # stuff.draw_player(root,player)
+        root.blit(scaled_image, (player.x, player.y))
         
         #Handle movement
         keys = pygame.key.get_pressed()
@@ -50,6 +58,14 @@ def main():
         if keys[pygame.K_RIGHT]:
             player.x = stuff.move_player_right(player.x)
         
+        #Draw the projectiles
+        for ob in projectile_list:
+            ob.draw(root)
+            
+        #Move the projectiles
+        for ob in projectile_list:
+            ob.y = ob.move_projectile()
+            
         pygame.display.update()
     pygame.quit()
 

@@ -18,8 +18,13 @@ def draw_player(root,player):
     
 
 def move_player_right(x):
-    return x+PLAYER_SPEED
-
+    if x+PLAYER_SPEED < WIDTH-PLAYER_SIZE:
+        return x+PLAYER_SPEED
+    else:
+        return x
 
 def move_player_left(x):
-    return x-PLAYER_SPEED
+    if x-PLAYER_SPEED > 0:
+        return x-PLAYER_SPEED
+    else:
+        return x
