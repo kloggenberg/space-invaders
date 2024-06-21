@@ -17,13 +17,6 @@ def main():
     #Make Player
     player = Player()
     
-    
-    # #Import Image
-    # image = pygame.image.load('game_assets/player.png')
-    # scaled_width = scaled_height = 50
-    # scaled_image = pygame.transform.scale(image, (scaled_width, scaled_height))
-
-    
     #Variable to help control shoot
     shoot = False
 
