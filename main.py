@@ -103,8 +103,12 @@ def main():
     # Initialize mixer for sound
     pygame.mixer.init()
 
+    # Load the background music and play it in a loop
+    pygame.mixer.music.load("game_assets/music/battle_music.wav")  # Replace with your music file
+    pygame.mixer.music.play(-1)  # -1 makes it loop indefinitely
+    pygame.mixer.music.set_volume(0.6)
     # Load the shoot sound
-    shoot_sound = pygame.mixer.Sound("game_assets/music/shoot_sound.wav")  # Replace with the path to your shoot sound file
+    shoot_sound = pygame.mixer.Sound("game_assets/music/shoot_sound.wav")
 
     # List for projectiles
     projectile_list = []
@@ -198,17 +202,19 @@ def main():
 
         # Display health
         font = pygame.font.Font(FONT_PATH, 36)
-        health_text = font.render(f'Health: {player.health}', True, (255, 255, 255))
+        health_text = font.render(f'Health   {player.health}', True, (255, 255, 255))
         root.blit(health_text, (10, 10))
 
         # Display score
-        score_text = font.render(f'Score: {score}', True, (255, 255, 255))
+        score_text = font.render(f'Score   {score}', True, (255, 255, 255))
         root.blit(score_text, (WIDTH - 150, 10))
 
         pygame.display.update()
 
+    pygame.mixer.music.stop()  # Stop the background music when the game ends
     show_game_over_screen(score)  # Show game over screen when the game ends
     pygame.quit()
+
 
 
 if __name__ == '__main__':
