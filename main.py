@@ -10,10 +10,16 @@ from modules.enemy.enemy import Enemy
 
 # Load custom font
 FONT_PATH = 'game_assets/font/arcadeclassic/ARCADECLASSIC.TTF'
-
 def show_menu():
     pygame.init()
     
+    # Initialize mixer for sound
+    pygame.mixer.init()
+    
+    # Load the background music
+    pygame.mixer.music.load("game_assets/music/start_sound.mp3")
+    pygame.mixer.music.play(-1)
+
     root = pygame.display.set_mode((WIDTH, HEIGHT))
     pygame.display.set_caption("Menu")
 
@@ -45,6 +51,10 @@ def show_menu():
         root.blit(prompt_text, prompt_rect)
         pygame.display.update()
 
+    # Stop the background music once the menu ends
+    pygame.mixer.music.stop()
+    
+    
 def show_game_over_screen(score):
     pygame.init()
     
@@ -89,32 +99,38 @@ def show_game_over_screen(score):
 
 def main():
     pygame.init()
-    
+
+    # Initialize mixer for sound
+    pygame.mixer.init()
+
+    # Load the shoot sound
+    shoot_sound = pygame.mixer.Sound("game_assets/music/shoot_sound.wav")  # Replace with the path to your shoot sound file
+
     # List for projectiles
     projectile_list = []
     # List for enemies
     enemy_list = []
-    
+
     # Make screen and set window title
     root = pygame.display.set_mode((WIDTH, HEIGHT))
     pygame.display.set_caption("My Game")
-    
+
     # Make Player
     player = Player()
-    
+
     # Variable to help control shoot
     shoot = False
 
     run_game = True
     clock = pygame.time.Clock()
     score = 0
-    
+
     while run_game:
         clock.tick(FPS)
-        
+
         # Get the mouse position
         mouse_position = pygame.mouse.get_pos()
-        
+
         # Event loop
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -125,6 +141,7 @@ def main():
                     projectile = Projectiles(player.get_center(), mouse_position)
                     projectile_list.append(projectile)
                     shoot = True
+                    shoot_sound.play()  # Play shoot sound when the player shoots
             if event.type == pygame.MOUSEBUTTONUP:
                 if event.button == 1 and shoot:  # Left mouse button
                     shoot = False
@@ -133,12 +150,12 @@ def main():
         if random.randint(1, 100) <= 5:  # Adjust the probability as needed
             enemy = Enemy(player.get_center(), WIDTH, HEIGHT)
             enemy_list.append(enemy)
-                    
+
         player.calculate_angle(player.rect.center, mouse_position)
-        
+
         # Make screen color Black
         root.fill(BLACK)
-        
+
         keys = pygame.key.get_pressed()
         player.handle_movement(keys)
 
@@ -178,20 +195,21 @@ def main():
 
         # Draw the player
         player.put_image(root)
-        
+
         # Display health
         font = pygame.font.Font(FONT_PATH, 36)
         health_text = font.render(f'Health: {player.health}', True, (255, 255, 255))
         root.blit(health_text, (10, 10))
-        
+
         # Display score
         score_text = font.render(f'Score: {score}', True, (255, 255, 255))
         root.blit(score_text, (WIDTH - 150, 10))
-        
+
         pygame.display.update()
-    
+
     show_game_over_screen(score)  # Show game over screen when the game ends
     pygame.quit()
+
 
 if __name__ == '__main__':
     show_menu()
