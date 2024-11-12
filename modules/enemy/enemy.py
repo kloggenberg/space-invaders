@@ -5,7 +5,7 @@ import math
 class Enemy:
     def __init__(self, player_pos, screen_width, screen_height):
         # Load the enemy sprite
-        self.image = pygame.image.load('game_assets/enemy.png')
+        self.image = pygame.image.load('game_assets/images/enemy.png')
         self.image = pygame.transform.scale(self.image, (50, 50))  # Adjust the size as needed
         self.rect = self.image.get_rect()
 

@@ -3,10 +3,10 @@ import random
 import math
 import os
 
-from world import *
-from player import Player
-from projectiles import Projectiles
-from enemy import Enemy
+from modules.world.world import *
+from modules.player.player import Player
+from modules.projectile.projectiles import Projectiles
+from modules.enemy.enemy import Enemy
 
 # Load custom font
 FONT_PATH = 'game_assets/font/arcadeclassic/ARCADECLASSIC.TTF'
@@ -18,7 +18,7 @@ def show_menu():
     pygame.display.set_caption("Menu")
 
     # Load the background image
-    background_image = pygame.image.load('game_assets/background.jpg')
+    background_image = pygame.image.load('game_assets/images/background.jpg')
     background_image = pygame.transform.scale(background_image, (WIDTH, HEIGHT))
 
     font_title = pygame.font.Font(FONT_PATH, 74)
@@ -52,7 +52,7 @@ def show_game_over_screen(score):
     pygame.display.set_caption("Game Over")
 
     # Load the background image
-    background_image = pygame.image.load('game_assets/background.jpg')
+    background_image = pygame.image.load('game_assets/images/background.jpg')
     background_image = pygame.transform.scale(background_image, (WIDTH, HEIGHT))
 
     font_game_over = pygame.font.Font(FONT_PATH, 74)

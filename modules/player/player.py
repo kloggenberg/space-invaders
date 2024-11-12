@@ -1,4 +1,4 @@
-import world as world
+import modules.world.world as world
 
 import pygame
 import math
@@ -11,7 +11,7 @@ class Player:
         self.PLAYER_SPEED = 8
         self.rect = pygame.Rect(self.x, self.y, self.PLAYER_SIZE, self.PLAYER_SIZE)
         self.health = 10
-        self.scaled_image = pygame.transform.scale(pygame.image.load('game_assets/player.png'), (50, 50))
+        self.scaled_image = pygame.transform.scale(pygame.image.load('game_assets/images/player.png'), (50, 50))
         self.rotated_image = self.scaled_image
         self.angle = 0
 
