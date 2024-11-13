@@ -12,7 +12,7 @@ Space Invaders is a classic arcade-style game where players control a spaceship 
 ## How to Play
 1. **Controls**: Use the arrow keys to move your spaceship left and right.
 2. **Shooting**: Press the spacebar to shoot at the invading aliens.
-3. **Avoiding Enemy Fire**: Dodge incoming projectiles from the aliens.
+3. **Avoiding Incoming Enemy**: Dodge incoming aliens.
 4. **Winning**: Eliminate all aliens in a wave to advance to the next level.
 
 ## Installation
@@ -24,7 +24,7 @@ Space Invaders is a classic arcade-style game where players control a spaceship 
     ```bash
     cd space-invaders
     ```
-3. Install all the nessesary dependacies
+3. Install all the nessesary dependacies:
     ```bash
     pip install -r requirements.txt
     ```
