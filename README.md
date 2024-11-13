@@ -1,7 +1,7 @@
 # Space Invaders
 
 ## Project Overview
-Space Invaders is a classic arcade-style game where players control a spaceship to defend against waves of alien invaders. The objective is to eliminate all the aliens while avoiding their projectiles. This project implements the game using [mention the language or framework if applicable].
+Space Invaders is a classic arcade-style game where players control a spaceship to defend against waves of alien invaders. The objective is to eliminate all the aliens while avoiding their projectiles. This project implements the game using python pygame.
 
 ## Features
 - **Classic Gameplay**: Experience the nostalgic gameplay of the original Space Invaders.
@@ -25,7 +25,10 @@ Space Invaders is a classic arcade-style game where players control a spaceship 
     cd space-invaders
     ```
 
-3. [Include any additional installation steps like dependencies if necessary, or mention if no setup is required.]
+3. Install all the nessesary dependacies
+```bash
+pip install -r requirements.txt
+```
 
 ## Usage
 To start the game:
