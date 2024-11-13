@@ -24,14 +24,13 @@ Space Invaders is a classic arcade-style game where players control a spaceship 
     ```bash
     cd space-invaders
     ```
-
 3. Install all the nessesary dependacies
-```bash
-pip install -r requirements.txt
-```
+    ```bash
+    pip install -r requirements.txt
+    ```
 
 ## Usage
 To start the game:
-```bash
-python3 main.py
-```
+    ```bash
+    python3 main.py
+    ```
